@@ -9,8 +9,9 @@
 
 <body bgcolor="#ffffff">
 
-    <p align=center>Rejestracja zakonczona. Mozesz sie zalogowac</p>
+    <p align=center>Nieprawidlowe haslo lub uzytkownik nie istnieje</p>
     <p align=center><a href="index.jsp">powrot</a></p>
 
 </body>
+
 </html>

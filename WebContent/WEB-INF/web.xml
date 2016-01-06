@@ -18,6 +18,8 @@
     <filter-name>SessionCheckFilter</filter-name>
     <url-pattern>/SuccessPage</url-pattern>
     <url-pattern>/UserExists</url-pattern>
+    <url-pattern>/SuccessLogin</url-pattern>
+    <url-pattern>/ErrorLogin</url-pattern>
 </filter-mapping>
 
 <servlet> 
@@ -37,5 +39,25 @@
     <servlet-name>UserExists</servlet-name>                           
     <url-pattern>/UserExists</url-pattern>                            
 </servlet-mapping>   
+
+<servlet>
+    <servlet-name>SuccessLogin</servlet-name>
+    <jsp-file>/WEB-INF/SuccessLogin.jsp</jsp-file>
+</servlet>
+<servlet-mapping>
+    <servlet-name>SuccessLogin</servlet-name>
+    <url-pattern>/SuccessLogin</url-pattern>
+</servlet-mapping>
+
+<servlet>
+    <servlet-name>ErrorLogin</servlet-name>
+    <jsp-file>/WEB-INF/ErrorLogin.jsp</jsp-file>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ErrorLogin</servlet-name>
+    <url-pattern>/ErrorLogin</url-pattern>
+</servlet-mapping>
+
+
 
 </web-app>

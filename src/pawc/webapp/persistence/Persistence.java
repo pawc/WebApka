@@ -47,4 +47,29 @@ public class Persistence{
         conn.close();
     }
     
+    public static boolean login(User user) throws ClassNotFoundException, SQLException{
+        Class.forName("org.postgresql.Driver");
+
+        Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
+        Statement stmt = conn.createStatement();
+        String query = "SELECT * FROM userpass WHERE login='"+user.getLogin()+"';";
+        ResultSet rs = stmt.executeQuery(query);
+        
+        boolean answer;
+
+        if(!rs.next()) return false;
+        if(user.getHashedPass().equals(rs.getString(2))){
+            answer = true;
+        }
+        else{
+            answer = false;
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+        return answer;
+
+    }    
+
 }

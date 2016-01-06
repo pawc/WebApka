@@ -17,5 +17,15 @@
     <p align=center><input type="submit" value="OK" /></p>
 </form>
 
+<hr>
+
+<p align=center>Zaloguj się:</p>
+
+<form action="Login" method="post">
+    <p align=center>login: <input type="text" name="name" /></p>
+    <p align=center>hasło: <input type="password" name="password" /></p>
+    <p align=center><input type="submit" value="OK" /></p>
+</form>
+
 </body>
 </html>

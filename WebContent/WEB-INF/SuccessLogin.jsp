@@ -8,8 +8,9 @@
 </head>
 
 <body bgcolor="#ffffff">
-
-    <p align=center>Rejestracja zakonczona. Mozesz sie zalogowac</p>
+    
+    <p align=center>Zalogowano pomyslnie</p>
+    <p align=center>Strona widoczna tylko dla zarejestrowanych uzytkownikow po zalogowaniu</p>
     <p align=center><a href="index.jsp">powrot</a></p>
 
 </body>
