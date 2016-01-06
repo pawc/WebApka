@@ -33,6 +33,11 @@ public class Register extends HttpServlet {
         try{
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
+            if(name.length()<3 || pass.length()<3){
+                out.println("<html><p align=center>Haslo i login musza miec minimum 3 znaki</p><p align=center><a href=index.jsp>powrót</a></p></html>");
+                return;
+            }
+
             String hashedPass = String.valueOf(pass.hashCode());
             User user = new User(name, hashedPass);
             if(Persistence.isUserRegistered(user)){
