@@ -20,6 +20,7 @@
     <url-pattern>/UserExists</url-pattern>
     <url-pattern>/SuccessLogin</url-pattern>
     <url-pattern>/ErrorLogin</url-pattern>
+    <url-pattern>/Wall</url-pattern>
 </filter-mapping>
 
 <servlet> 
@@ -58,6 +59,9 @@
     <url-pattern>/ErrorLogin</url-pattern>
 </servlet-mapping>
 
-
+<servlet>
+    <servlet-name>Wall</servlet-name>
+    <servlet-class>pl.pawc.Wall</servlet-class>
+</servlet>
 
 </web-app>

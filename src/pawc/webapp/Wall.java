@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
     
-import pawc.webapp.persistence.Persistence;
-import pawc.webapp.model.User;
-
 import java.sql.SQLException;
 
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+import pawc.webapp.persistence.Persistence;
+import pawc.webapp.model.EntryModel;
+
+@WebServlet("/Wall")
+public class Wall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static PrintWriter out = null;
     
-    public Login() {
+    public Wall() {
         super();
     }
     
@@ -32,20 +32,20 @@ public class Login extends HttpServlet {
     
         try{
             String name = request.getParameter("name");
-            String pass = request.getParameter("password");
-            String hashedPass = String.valueOf(pass.hashCode());
-            User user = new User(name, hashedPass);
-            if(Persistence.login(user)){
-                RequestDispatcher rd = request.getRequestDispatcher("Wall");
-                rd.forward(request, response);
+            out.println("<html><p align=center>Jestes zalogowany jako "+name+"</p></html>");
+
+            List<EntryModel> list = Persistence.getAllEntries();
+            String content = "";
+
+            for(EntryModel entry : list){
+                content+=printRow(entry.getAuthor(), entry.getDate(), entry.getMessage());
             }
-            else{        
-                RequestDispatcher rd = request.getRequestDispatcher("ErrorLogin");
-                rd.forward(request, response);
-            }   
+
+            out.println(table(content));
+
         }
         catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
+            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>");
         }
         finally{
             out.close();
@@ -59,5 +59,13 @@ public class Login extends HttpServlet {
   	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
 	}
+
+    protected String printRow(String author, String date, String message){
+        return "<tr><td>"+author+"</td><td>"+date+"</td><td>"+message+"</td></tr>";
+    }
+    
+    protected String table(String content){
+        return "<table border=1 style=\"width:100%\">"+ content +"</table>";
+    }
 	
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pawc.webapp.model.User;
+import pawc.webapp.model.EntryModel;
 
 public class Persistence{
 
@@ -71,5 +72,22 @@ public class Persistence{
         return answer;
 
     }    
+
+    public static List<EntryModel> getAllEntries() throws SQLException, ClassNotFoundException{
+        
+        List<EntryModel> list = new ArrayList<EntryModel>();
+        
+        Class.forName("org.postgresql.Driver");
+               
+        Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
+        Statement stmt = conn.createStatement();
+        String query = "Select * from wall;";
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next()){
+            EntryModel entry = new EntryModel(rs.getString(1), rs.getString(2), rs.getString(3));
+            list.add(entry);
+        }      
+        return list;
+    }
 
 }
