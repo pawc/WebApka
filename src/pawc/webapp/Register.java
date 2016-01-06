@@ -10,33 +10,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.RequestDispatcher;
+    
 import pawc.webapp.persistence.Persistence;
+import pawc.webapp.model.User;
 
 import java.sql.SQLException;
 
-@WebServlet("/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet("/Register")
+public class Register extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static PrintWriter out = null;
     
-    public TestServlet() {
+    public Register() {
         super();
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         PrintWriter out = response.getWriter();
+    
         try{
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
-            if(Persistence.isUserRegistered(name)){
-                response.sendRedirect("UserExists.jsp");
+            String hashedPass = String.valueOf(pass.hashCode());
+            User user = new User(name, hashedPass);
+            if(Persistence.isUserRegistered(user)){
+                RequestDispatcher rd = request.getRequestDispatcher("UserExists");
+                rd.forward(request, response);
             }
             else{        
-                Persistence.newUser(name, String.valueOf(pass.hashCode()));
-                response.sendRedirect("SuccessPage.jsp");
-            }
+                Persistence.newUser(user);
+                RequestDispatcher rd = request.getRequestDispatcher("SuccessPage");
+                rd.forward(request, response);
+            }   
         }
         catch(ClassNotFoundException | SQLException e){
             out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
@@ -50,8 +57,8 @@ public class TestServlet extends HttpServlet {
 		processRequest(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+  	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
 	}
 	
 }
