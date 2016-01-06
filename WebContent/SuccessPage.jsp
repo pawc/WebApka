@@ -7,12 +7,8 @@
 </head>
 <body bgcolor="#ffffff">
 
-<p align=center>Zarejestruj się:</p>
+<p align=center>Rejestracja zakończona</p>
+<p align=center><a href="index.jsp">powrót</a></p>
 
-<form action="TestServlet">
-<p align=center>login: <input type="text" name="name" /></p>
-<p align=center>hasło: <input type="password" name="password" /></p>
-<p align=center><input type="submit" value="OK" /></p>
-</form>
 </body>
 </html>

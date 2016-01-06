@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import pawc.webapp.persistence.Persistence;
+
+import java.sql.SQLException;
+
 @WebServlet("/TestServlet")
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +29,12 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try{
             String name = request.getParameter("name");
-            out.println("<html><p align=center>Witaj "+name+"!</p></html>");
+            String pass = request.getParameter("password");
+            Persistence.newUser(name, String.valueOf(pass.hashCode()));
+            response.sendRedirect("SuccessPage.jsp");
+        }
+        catch(ClassNotFoundException | SQLException e){
+            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
         }
         finally{
             out.close();
