@@ -30,8 +30,13 @@ public class TestServlet extends HttpServlet {
         try{
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
-            Persistence.newUser(name, String.valueOf(pass.hashCode()));
-            response.sendRedirect("SuccessPage.jsp");
+            if(Persistence.isUserRegistered(name)){
+                response.sendRedirect("UserExists.jsp");
+            }
+            else{        
+                Persistence.newUser(name, String.valueOf(pass.hashCode()));
+                response.sendRedirect("SuccessPage.jsp");
+            }
         }
         catch(ClassNotFoundException | SQLException e){
             out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
