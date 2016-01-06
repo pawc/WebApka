@@ -11,6 +11,11 @@ public class EntryModel {
         this.message = message;
         this.date = date;
     }
+
+    public EntryModel(String author, String message){
+        this.author = author;
+        this.message = message;
+    }
     
     public String getAuthor(){
         return author;

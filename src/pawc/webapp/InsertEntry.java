@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.RequestDispatcher;
     
-import java.sql.SQLException;
-
 import pawc.webapp.persistence.Persistence;
+import pawc.webapp.model.User;
 import pawc.webapp.model.EntryModel;
 
-@WebServlet("/Wall")
-public class Wall extends HttpServlet {
+import java.sql.SQLException;
+
+@WebServlet("/InsertEntry")
+public class InsertEntry extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static PrintWriter out = null;
     
-    public Wall() {
+    public InsertEntry() {
         super();
     }
     
@@ -31,24 +32,21 @@ public class Wall extends HttpServlet {
         PrintWriter out = response.getWriter();
     
         try{
+            String message = request.getParameter("message");
             HttpSession session = request.getSession();
             String name = (String) session.getAttribute("login");
-            out.println("<html><p align=center>Jestes zalogowany jako "+name+"</p></html>");
-
-            out.println("</form><form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value=ok /></p></form>");
-
-            List<EntryModel> list = Persistence.getAllEntries();
-            String content = "";
-
-            for(EntryModel entry : list){
-                content+=printRow(entry.getAuthor(), entry.getDate(), entry.getMessage());
+            if("null".equals(name)||"null".equals(message)||"".equals(name)||name==null){
+                response.sendRedirect("index.jsp");
+                return;
             }
-
-            out.println(table(content));
+            EntryModel entry = new EntryModel(name, message);
+            Persistence.addEntry(entry);
+            RequestDispatcher rd = request.getRequestDispatcher("Wall");
+            rd.forward(request, response);                              
 
         }
         catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>");
+            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
         }
         finally{
             out.close();
@@ -62,13 +60,5 @@ public class Wall extends HttpServlet {
   	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
 	}
-
-    protected String printRow(String author, String date, String message){
-        return "<tr><td>"+author+"</td><td>"+date+"</td><td>"+message+"</td></tr>";
-    }
-    
-    protected String table(String content){
-        return "<table border=1 style=\"width:100%\"><col width=\"150\"><col width=\"280\">"+ content +"</table>";
-    }
 	
 }

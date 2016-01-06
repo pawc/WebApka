@@ -36,6 +36,8 @@ public class Login extends HttpServlet {
             String hashedPass = String.valueOf(pass.hashCode());
             User user = new User(name, hashedPass);
             if(Persistence.login(user)){
+                HttpSession session = request.getSession(true);
+                session.setAttribute("login", name);
                 RequestDispatcher rd = request.getRequestDispatcher("Wall");
                 rd.forward(request, response);
             }

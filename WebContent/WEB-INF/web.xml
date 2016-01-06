@@ -64,4 +64,9 @@
     <servlet-class>pl.pawc.Wall</servlet-class>
 </servlet>
 
+<servlet>
+    <servlet-name>InsertEntry</servlet-name>
+    <servlet-class>pl.pawc.InsertEntry</servlet-class>
+</servlet>
+
 </web-app>
