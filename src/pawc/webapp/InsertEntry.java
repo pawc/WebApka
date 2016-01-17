@@ -32,7 +32,11 @@ public class InsertEntry extends HttpServlet {
         PrintWriter out = response.getWriter();
     
         try{
-            String message = request.getParameter("message");
+            String message = (String) request.getParameter("message");
+            if(message==null||message.equals("")){
+                response.sendRedirect("Wall");
+                return;
+            }
             HttpSession session = request.getSession();
             String name = (String) session.getAttribute("login");
             if("null".equals(name)||"null".equals(message)||"".equals(name)||name==null){
@@ -41,8 +45,7 @@ public class InsertEntry extends HttpServlet {
             }
             EntryModel entry = new EntryModel(name, message);
             Persistence.addEntry(entry);
-            RequestDispatcher rd = request.getRequestDispatcher("Wall");
-            rd.forward(request, response);                              
+            response.sendRedirect("Wall");
 
         }
         catch(ClassNotFoundException | SQLException e){

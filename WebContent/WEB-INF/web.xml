@@ -20,7 +20,6 @@
     <url-pattern>/UserExists</url-pattern>
     <url-pattern>/SuccessLogin</url-pattern>
     <url-pattern>/ErrorLogin</url-pattern>
-    <url-pattern>/Wall</url-pattern>
 </filter-mapping>
 
 <servlet> 

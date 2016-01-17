@@ -28,11 +28,13 @@ public class Wall extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        String name = (String) session.getAttribute("login");
+        if(name==null) response.sendRedirect("index.jsp");
+
         PrintWriter out = response.getWriter();
     
         try{
-            HttpSession session = request.getSession();
-            String name = (String) session.getAttribute("login");
             out.println("<html><p align=center>Jestes zalogowany jako "+name+"</p></html>");
 
             out.println("</form><form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value=ok /></p></form>");
