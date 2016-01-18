@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.RequestDispatcher;
     
 import pawc.webapp.persistence.Persistence;
 import pawc.webapp.model.User;
@@ -41,17 +40,15 @@ public class Register extends HttpServlet {
             String hashedPass = String.valueOf(pass.hashCode());
             User user = new User(name, hashedPass);
             if(Persistence.isUserRegistered(user)){
-                RequestDispatcher rd = request.getRequestDispatcher("UserExists");
-                rd.forward(request, response);
+                response.sendRedirect("UserExists");
             }
             else{        
                 Persistence.newUser(user);
-                RequestDispatcher rd = request.getRequestDispatcher("SuccessPage");
-                rd.forward(request, response);
+                response.sendRedirect("SuccessPage");
             }   
         }
         catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
+            out.println("<html><p align=center>"+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
         }
         finally{
             out.close();

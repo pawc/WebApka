@@ -16,10 +16,8 @@
 </filter>
 <filter-mapping>
     <filter-name>SessionCheckFilter</filter-name>
-    <url-pattern>/SuccessPage</url-pattern>
-    <url-pattern>/UserExists</url-pattern>
-    <url-pattern>/SuccessLogin</url-pattern>
-    <url-pattern>/ErrorLogin</url-pattern>
+    <url-pattern>/Wall</url-pattern>
+    <url-pattern>/InsertEntry</url-pattern>
 </filter-mapping>
 
 <servlet> 

@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.RequestDispatcher;
     
 import pawc.webapp.persistence.Persistence;
-import pawc.webapp.model.User;
 import pawc.webapp.model.EntryModel;
 
 import java.sql.SQLException;
@@ -39,17 +37,13 @@ public class InsertEntry extends HttpServlet {
             }
             HttpSession session = request.getSession();
             String name = (String) session.getAttribute("login");
-            if("null".equals(name)||"null".equals(message)||"".equals(name)||name==null){
-                response.sendRedirect("index.jsp");
-                return;
-            }
             EntryModel entry = new EntryModel(name, message);
             Persistence.addEntry(entry);
             response.sendRedirect("Wall");
 
         }
         catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
+            out.println("<html><p align=center>"+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
         }
         finally{
             out.close();

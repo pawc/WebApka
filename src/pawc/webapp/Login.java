@@ -28,8 +28,6 @@ public class Login extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        PrintWriter out = response.getWriter();
-    
         try{
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
@@ -38,20 +36,16 @@ public class Login extends HttpServlet {
             if(Persistence.login(user)){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("login", name);
-                RequestDispatcher rd = request.getRequestDispatcher("Wall");
-                rd.forward(request, response);
+                response.sendRedirect("Wall");
             }
             else{        
-                RequestDispatcher rd = request.getRequestDispatcher("ErrorLogin");
-                rd.forward(request, response);
+                response.sendRedirect("ErrorLogin");
             }   
         }
         catch(ClassNotFoundException | SQLException e){
             out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
         }
-        finally{
-            out.close();
-        }       
+
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
