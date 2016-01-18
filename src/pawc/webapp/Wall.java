@@ -34,9 +34,10 @@ public class Wall extends HttpServlet {
         PrintWriter out = response.getWriter();
     
         try{
-            out.println("<html><p align=center>Jestes zalogowany jako "+name+"</p></html>");
+            out.println("<html><p align=center>Jestes zalogowany jako "+name+"</p>");
+            out.println("<p align=center><form action=Logout method=post><input type=submit value=wyloguj /></form></p>");
 
-            out.println("</form><form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value=ok /></p></form>");
+            out.println("<form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value=ok /></p></form>");
 
             List<EntryModel> list = Persistence.getAllEntries();
             String content = "";
@@ -46,10 +47,10 @@ public class Wall extends HttpServlet {
             }
 
             out.println(table(content));
-
+            out.println("</html>");
         }
         catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>");
+            out.println("<html><p align=center>"+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>");
         }
         finally{
             out.close();
