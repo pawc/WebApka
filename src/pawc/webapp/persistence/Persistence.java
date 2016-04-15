@@ -43,7 +43,6 @@ public class Persistence{
         Statement stmt = conn.createStatement();
         String query = "INSERT INTO userpass VALUES ('"+user.getLogin()+"', '"+user.getHashedPass()+"');";
         stmt.executeUpdate(query);
-
         stmt.close();
         conn.close();
     }
@@ -73,12 +72,25 @@ public class Persistence{
 
     }    
 
+	public static List<String> getRegisteredUsers() throws SQLException, ClassNotFoundException{
+		List<String> list = new ArrayList<String>();
+		Class.forName("org.postgresql.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
+		Statement stmt = conn.createStatement();
+		String query = "Select login from userpass";
+		ResultSet rs = stmt.executeQuery(query);
+		while(rs.next()){
+			list.add(rs.getString(1));
+		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return list;
+	}	
+
     public static List<EntryModel> getAllEntries() throws SQLException, ClassNotFoundException{
-        
         List<EntryModel> list = new ArrayList<EntryModel>();
-        
         Class.forName("org.postgresql.Driver");
-               
         Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
         Statement stmt = conn.createStatement();
         String query = "Select * from wall order by date desc;";
@@ -87,7 +99,10 @@ public class Persistence{
             EntryModel entry = new EntryModel(rs.getString(1), rs.getString(2), rs.getString(3));
             list.add(entry);
         }      
-        return list;
+	rs.close();
+	stmt.close();
+	conn.close();
+    return list;
     }
 
     public static void addEntry(EntryModel entry) throws SQLException, ClassNotFoundException{
@@ -98,7 +113,8 @@ public class Persistence{
         Statement stmt = conn.createStatement();
         String query = "insert into wall values('"+entry.getAuthor()+"','NOW()','"+entry.getMessage()+"');";
         stmt.executeUpdate(query);
-        
+	stmt.close();
+	conn.close();        
     }
 
 }
