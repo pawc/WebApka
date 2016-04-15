@@ -42,9 +42,10 @@ public class Wall extends HttpServlet {
                     usersString+=nick+" - ";
             }			
             out.println("<p align=center>All registered users: "+usersString+"</p>");
-
-            out.println("<p align=center><form action=Logout method=post><input type=submit value=Logout /></form></p>");
-            out.println("<form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value=ok /></p></form>");
+            out.println("<form action=Details method=post><p align=center><input type=submit value='Account Info' /></form>");
+            out.println("<form action=Logout method=post><p align=center><input type=submit value=Logout /></form>");
+            out.println("<form action=CheckDetails method=post><p align=center><input type=text name=info size=10 /><input type=submit value='Search User' /></form>");
+            out.println("<form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value='Submit message' /></p></form>");
             List<EntryModel> list = Persistence.getAllEntries();
             String content = "";
 
@@ -63,13 +64,13 @@ public class Wall extends HttpServlet {
         }       
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            processRequest(request, response);
+    }
 
-  	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            processRequest(request, response);
+    }
 
     protected String printRow(String author, String date, String message){
         return "<tr><td>"+author+"</td><td>"+date+"</td><td>"+message+"</td></tr>";
