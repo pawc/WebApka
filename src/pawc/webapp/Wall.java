@@ -35,10 +35,16 @@ public class Wall extends HttpServlet {
     
         try{
             out.println("<html><p align=center>Jestes zalogowany jako "+name+"</p>");
+			
+			List<String> usersList = Persistence.getRegisteredUsers();
+			String usersString = " - ";
+			for(String nick : usersList){
+				usersString+=nick+" - ";
+			}			
+			out.println("<p align=center>All registered users: "+usersString+"</p>");
+
             out.println("<p align=center><form action=Logout method=post><input type=submit value=wyloguj /></form></p>");
-
             out.println("<form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value=ok /></p></form>");
-
             List<EntryModel> list = Persistence.getAllEntries();
             String content = "";
 
