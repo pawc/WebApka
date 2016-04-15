@@ -9,8 +9,8 @@
 
 <body bgcolor="#ffffff">
 
-    <p align=center>Rejestracja zakonczona. Mozesz sie zalogowac</p>
-    <p align=center><a href="index.jsp">powrot</a></p>
+    <p align=center>Registration complete. You can log in.</p>
+    <p align=center><a href="index.jsp">back</a></p>
 
 </body>
 </html>

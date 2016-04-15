@@ -9,8 +9,8 @@
 
 <body bgcolor="#ffffff">
 
-    <p align=center>Nieprawidlowe haslo lub uzytkownik nie istnieje</p>
-    <p align=center><a href="index.jsp">powrot</a></p>
+    <p align=center>Invalid user or pass</p>
+    <p align=center><a href="index.jsp">back</a></p>
 
 </body>
 

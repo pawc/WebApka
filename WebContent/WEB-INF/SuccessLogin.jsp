@@ -9,9 +9,9 @@
 
 <body bgcolor="#ffffff">
     
-    <p align=center>Zalogowano pomyslnie</p>
-    <p align=center>Strona widoczna tylko dla zarejestrowanych uzytkownikow po zalogowaniu</p>
-    <p align=center><a href="index.jsp">powrot</a></p>
+    <p align=center>Logged in succesfully</p>
+    <p align=center></p>
+    <p align=center><a href="index.jsp">back</a></p>
 
 </body>
 </html>

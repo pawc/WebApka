@@ -9,8 +9,8 @@
 
 <body bgcolor="#ffffff">
 
-    <p align=center>Nazwa uzytkownika juz istnieje</p>
-    <p align=center><a href="index.jsp">powrot</a></p>
+    <p align=center>Username exists. Try another one</p>
+    <p align=center><a href="index.jsp">back</a></p>
 
 </body>
 
