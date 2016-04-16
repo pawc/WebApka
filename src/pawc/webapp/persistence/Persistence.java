@@ -41,7 +41,9 @@ public class Persistence{
         Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
         Statement stmt = conn.createStatement();
         String query = "INSERT INTO userpass VALUES ('"+user.getLogin()+"', '"+user.getHashedPass()+"');";
+        String query2 = "INSERT INTO info VALUES ('"+user.getLogin()+"', ' ', ' ');";
         stmt.executeUpdate(query);
+        stmt.executeUpdate(query2);
         stmt.close();
         conn.close();
     }
@@ -76,13 +78,13 @@ public class Persistence{
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
         Statement stmt = conn.createStatement();
-        String query = "select city,website from info where login='pawc';";
+        String query = "select city,email from info where login='"+login+"';";
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
         String city = rs.getString(1);
-        String website = rs.getString(2);
+        String email = rs.getString(2);
         list.add(city);
-        list.add(website);
+        list.add(email);
 
         rs.close();
         stmt.close();
@@ -95,6 +97,16 @@ public class Persistence{
         Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
         Statement stmt = conn.createStatement();
         String update = "update info set city='"+city+"' where login='"+login+"';";
+        stmt.executeUpdate(update);
+        stmt.close();
+        conn.close();
+    }
+    
+        public static void updateEmail(String login, String email) throws SQLException, ClassNotFoundException{
+        Class.forName("org.postgresql.Driver");
+        Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
+        Statement stmt = conn.createStatement();
+        String update = "update info set email='"+email+"' where login='"+login+"';";
         stmt.executeUpdate(update);
         stmt.close();
         conn.close();

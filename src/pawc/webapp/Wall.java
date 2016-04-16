@@ -57,7 +57,7 @@ public class Wall extends HttpServlet {
             out.println("</html>");
         }
         catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>"+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>");
+            out.println("<html><p align=center>"+e.toString()+"</p><p align=center><a href=index.jsp>back</a></p></html>");
         }
         finally{
             out.close();

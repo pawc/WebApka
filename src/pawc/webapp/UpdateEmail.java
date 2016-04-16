@@ -11,20 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import pawc.webapp.persistence.Persistence;
 
-@WebServlet(name = "UpdateCity", urlPatterns = {"/UpdateCity"})
-public class UpdateCity extends HttpServlet {
+@WebServlet(name = "UpdateEmail", urlPatterns = {"/UpdateEmail"})
+public class UpdateEmail extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
         String name = (String) session.getAttribute("login");
         if(name==null) response.sendRedirect("index.jsp");
         
         try{
-            String city = request.getParameter("city");
-            Persistence.updateCity(name, city);
+            String email = request.getParameter("email");
+            Persistence.updateEmail(name, email);
             response.sendRedirect("Details");
         }
         catch(ClassNotFoundException | SQLException e){
@@ -33,6 +34,8 @@ public class UpdateCity extends HttpServlet {
         finally{
             out.close();
         }       
+        
+
     }
 
     @Override
@@ -45,6 +48,11 @@ public class UpdateCity extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
     }
 
 }

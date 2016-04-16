@@ -23,15 +23,6 @@ public class Details extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static PrintWriter out = null;
     
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
@@ -44,9 +35,9 @@ public class Details extends HttpServlet {
         out.println("<p align=center>Name: "+name);
         List<String> list = Persistence.getInfo(name);
         String city = list.get(0);
-        String website = list.get(1);
-        out.println("<form action=UpdateCity method=post><p align=center><input type=text name=city value="+city+" size=10 /><input type=submit value='Update City' /></form>");
-        out.println("<form action=UpdateWebsite method=post><p align=center><input type=text name=website value="+website+" size=10 /><input type=submit value='Update website' /></form>");
+        String email = list.get(1);
+        out.println("<form action=UpdateCity method=post><p align=center><input type=text size=10 name=city value='"+city+"' /><input type=submit value='Update City' /></form>");
+        out.println("<form action=UpdateEmail method=post><p align=center><input type=text size=20  name=email value='"+email+"' /><input type=submit value='Update e-mail' /></form>");
         out.println("<form action=Wall method=post><p align=center><input type=submit value='Back' /></form>");
         }
         catch(ClassNotFoundException | SQLException e){
