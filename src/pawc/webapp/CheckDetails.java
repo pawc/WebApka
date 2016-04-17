@@ -26,7 +26,7 @@ public class CheckDetails extends HttpServlet {
         try{
         String login = request.getParameter("info");
         List<String> list = Persistence.getInfo(login);
-        out.println("<p align=center><img src=http://localhost/"+login+".jpg height=50 width=50>");
+        out.println("<p align=center><img src=http://kritsit.ddns.net:81/"+login+".jpg height=50 width=50>");
         out.println("<p align=center>user: "+login+"</p>");
         out.println("<p align=center>city: "+list.get(0)+"</p>");
         out.println("<p align=center>e-mail: "+list.get(1)+"</p>");

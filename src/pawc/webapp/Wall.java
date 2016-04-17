@@ -73,11 +73,11 @@ public class Wall extends HttpServlet {
     }
 
     protected String printRow(String author, String date, String message){
-        return "<tr><td>"+author+"</td><td>"+date+"</td><td>"+message+"</td></tr>";
+        return "<tr><td><p align=center>"+author+"<br><img src='http://kritsit.ddns.net:81/"+author+".jpg' width=40 height=40</p></td><td><p align=center>"+date+"</p></td><td>"+message+"</td></tr>";
     }
     
     protected String table(String content){
-        return "<table border=1 style=\"width:100%\"><col width=\"150\"><col width=\"280\">"+ content +"</table>";
+        return "<table border=0.1 style=\"width:100%\"><col width=\"150\"><col width=\"150\">"+ content +"</table>";
     }
 	
 }
