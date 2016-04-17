@@ -36,8 +36,10 @@ public class Details extends HttpServlet {
         List<String> list = Persistence.getInfo(name);
         String city = list.get(0);
         String email = list.get(1);
+        out.println("<p align=center><img src=http://localhost/"+name+".jpg height=50 width=50>");
         out.println("<form action=UpdateCity method=post><p align=center><input type=text size=10 name=city value='"+city+"' /><input type=submit value='Update City' /></form>");
         out.println("<form action=UpdateEmail method=post><p align=center><input type=text size=20  name=email value='"+email+"' /><input type=submit value='Update e-mail' /></form>");
+        out.println("<form action=Upload method=post enctype=multipart/form-data> <p align=center><input type=file name=file><p align=center><input type=submit value='Upload (max 10kB)'></form>");  
         out.println("<form action=Wall method=post><p align=center><input type=submit value='Back' /></form>");
         }
         catch(ClassNotFoundException | SQLException e){
