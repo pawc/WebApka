@@ -40,10 +40,10 @@ public class Persistence{
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
         Statement stmt = conn.createStatement();
-        String query = "INSERT INTO userpass VALUES ('"+user.getLogin()+"', '"+user.getHashedPass()+"');";
-        String query2 = "INSERT INTO info VALUES ('"+user.getLogin()+"', ' ', ' ');";
+        String query = "INSERT INTO userpass VALUES (1, '"+user.getLogin()+"', '"+user.getHashedPass()+"');";
+        //String query2 = "INSERT INTO info VALUES ('"+user.getLogin()+"', ' ', ' ');";
         stmt.executeUpdate(query);
-        stmt.executeUpdate(query2);
+        //stmt.executeUpdate(query2);
         stmt.close();
         conn.close();
     }
@@ -59,7 +59,7 @@ public class Persistence{
         boolean answer;
 
         if(!rs.next()) return false;
-        if(user.getHashedPass().equals(rs.getString(2))){
+        if(user.getHashedPass().equals(rs.getString(3))){
             answer = true;
         }
         else{

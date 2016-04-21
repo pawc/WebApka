@@ -29,7 +29,12 @@ public class Wall extends HttpServlet {
         
         HttpSession session = request.getSession();
         String name = (String) session.getAttribute("login");
-        if(name==null) response.sendRedirect("index.jsp");
+        if(name==null){
+            response.sendRedirect("index.jsp");
+        }
+        else{
+            response.sendRedirect("page.xhtml");
+        }
 
         PrintWriter out = response.getWriter();
     
