@@ -5,7 +5,7 @@
   <artifactId>WebApka</artifactId>
   <packaging>war</packaging>
   <version>1</version>
-  <name>JSF Maven Webapp</name>
+  <name>WebApka</name>
   <url>http://maven.apache.org</url>
   <dependencies>
 	
@@ -55,6 +55,18 @@
 	<groupId>javax.servlet</groupId>
 	<artifactId>javax.servlet-api</artifactId>
 	<version>3.1.0</version>
+</dependency>
+
+<dependency>
+	<groupId>commons-io</groupId>
+	<artifactId>commons-io</artifactId>
+	<version>2.4</version>
+</dependency>
+
+<dependency>
+	<groupId>postgresql</groupId>
+	<artifactId>postgresql</artifactId>
+	<version>9.1-901-1.jdbc4</version>
 </dependency>
 
 <dependency>
