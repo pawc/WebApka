@@ -2,10 +2,13 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://kritsit.ddns.net:5432/webapka</property>
-    <property name="hibernate.connection.username">webapka</property>
-    <property name="hibernate.connection.password">razdwatrzy</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://kritsit.ddns.net:3306/pawc_db?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">pawc</property>
+    <property name="hibernate.connection.password">tetrof</property>
+    <mapping resource="pawc/webapp/persistence/Userpass.hbm.xml"/>
+    <mapping resource="pawc/webapp/persistence/Wall.hbm.xml"/>
+    <mapping resource="pawc/webapp/persistence/Info.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
