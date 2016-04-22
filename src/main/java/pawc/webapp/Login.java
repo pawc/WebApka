@@ -16,6 +16,8 @@ import pawc.webapp.persistence.Persistence;
 import pawc.webapp.model.User;
 
 import java.sql.SQLException;
+import javax.faces.context.FacesContext;
+import pawc.webapp.persistence.Data;
 
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -27,25 +29,19 @@ public class Login extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        try{
+  
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
             String hashedPass = String.valueOf(pass.hashCode());
-            User user = new User(name, hashedPass);
-            if(Persistence.login(user)){
+            Data data = new Data();
+            if(data.login(name, hashedPass)){
                 HttpSession session = request.getSession(true);
-                session.setAttribute("login", name);
-                response.sendRedirect("Wall");
+                request.setAttribute("login", name);
+                response.sendRedirect("page.xhtml");
             }
             else{        
                 response.sendRedirect("ErrorLogin");
             }   
-        }
-        catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>BŁĄD: "+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
-        }
-
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

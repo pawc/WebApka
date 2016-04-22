@@ -48,4 +48,17 @@ public class Data {
         return false; 
     }
     
+    public boolean login(String login, String hashedPass){
+        session = helper.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        String hql = "FROM Userpass U WHERE U.login='"+login+"'";
+        Query query = session.createQuery(hql);
+        t.commit();
+        userpassList = query.list();
+        if(userpassList.get(0).getHashedpass().equals(hashedPass)){
+            return true;
+        }
+        else return false; 
+    }
+    
 }

@@ -12,33 +12,7 @@ import pawc.webapp.model.User;
 import pawc.webapp.model.EntryModel;
 
 public class Persistence{
-
-    
-    public static boolean login(User user) throws ClassNotFoundException, SQLException{
-        Class.forName("org.postgresql.Driver");
-
-        Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
-        Statement stmt = conn.createStatement();
-        String query = "SELECT * FROM userpass WHERE login='"+user.getLogin()+"';";
-        ResultSet rs = stmt.executeQuery(query);
-        
-        boolean answer;
-
-        if(!rs.next()) return false;
-        if(user.getHashedPass().equals(rs.getString(3))){
-            answer = true;
-        }
-        else{
-            answer = false;
-        }
-
-        rs.close();
-        stmt.close();
-        conn.close();
-        return answer;
-
-    }    
-    
+   
     public static List<String> getInfo(String login) throws SQLException, ClassNotFoundException{
         List<String> list = new ArrayList<String>();
         Class.forName("org.postgresql.Driver");
