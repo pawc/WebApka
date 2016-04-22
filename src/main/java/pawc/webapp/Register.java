@@ -15,6 +15,7 @@ import pawc.webapp.persistence.Persistence;
 import pawc.webapp.model.User;
 
 import java.sql.SQLException;
+import pawc.webapp.persistence.Data;
 
 @WebServlet("/Register")
 public class Register extends HttpServlet {
@@ -28,6 +29,7 @@ public class Register extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         PrintWriter out = response.getWriter();
+        Data data = new Data();
     
         try{
             String name = request.getParameter("name");
@@ -39,16 +41,13 @@ public class Register extends HttpServlet {
 
             String hashedPass = String.valueOf(pass.hashCode());
             User user = new User(name, hashedPass);
-            if(Persistence.isUserRegistered(user)){
+            if(data.isUserRegistered(name)){
                 response.sendRedirect("UserExists");
             }
             else{        
-                Persistence.newUser(user);
+                data.newUser(name, hashedPass);
                 response.sendRedirect("SuccessPage");
             }   
-        }
-        catch(ClassNotFoundException | SQLException e){
-            out.println("<html><p align=center>"+e.toString()+"</p><p align=center><a href=index.jsp>powrót</a></p></html>"); 
         }
         finally{
             out.close();

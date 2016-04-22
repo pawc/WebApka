@@ -9,8 +9,6 @@
 	<link href="css/style.css" rel="stylesheet">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans|Dosis:400,800" rel="stylesheet" type="text/css" />
 
-
-
 </head>
 
 <body>
