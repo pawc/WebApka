@@ -12,6 +12,9 @@
                  <h:inputText id="input" binding="#{entry}" size="150"/>
                  <h:commandButton value="Submit" action="#{data.newEntry(atrybut.getLogin(), entry.value)}" />
              </h:form>
+             <h:form>
+                 <h:commandButton value="Info" action="info.xhtml" />
+             </h:form>
              <table style="width:100%"><col width="200" />
                 <c:forEach items="#{data.getAllEntries()}" var="wall">
                     <tr><td><h2>#{wall.login}</h2>

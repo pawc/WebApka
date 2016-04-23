@@ -28,6 +28,26 @@ public class Data {
         t.commit();  
     }
     
+    public void updateInfo(String login, String city, String email){
+         session = helper.getSessionFactory().openSession();     
+         Transaction t = session.beginTransaction();
+         String hql = "FROM Info AS I where I.login='"+login+"'";
+         Query query = session.createQuery(hql);
+         Info temp = ((Info) query.list().get(0));
+         temp.setCity(city);
+         temp.setEmail(email);
+         session.saveOrUpdate(temp);
+         t.commit();
+    }
+    
+    public Info getInfo(String login){
+         session = helper.getSessionFactory().openSession();     
+         Transaction t = session.beginTransaction();
+         String hql = "FROM Info AS I where I.login='"+login+"'";
+         Query query = session.createQuery(hql);
+         return ((Info) query.list().get(0));
+    }
+    
     public boolean isUserRegistered(String login){
         session = helper.getSessionFactory().openSession();
         Transaction t = session.beginTransaction();
