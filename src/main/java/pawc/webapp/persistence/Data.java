@@ -18,14 +18,7 @@ public class Data {
     private Session session;
     private String message;
     private List<Userpass> userpassList;
-    
-    public String getFirstEntry(){
-        session = helper.getSessionFactory().openSession();
-        session.beginTransaction();
-        wall = (Wall) session.get(Wall.class, 1);
-        this.message = wall.getMessage();
-        return message;
-    }
+    private List<Wall> wallList;
     
     public void newUser(String login, String hashedPass){
         session = helper.getSessionFactory().openSession();     
@@ -59,6 +52,16 @@ public class Data {
             return true;
         }
         else return false; 
+    }
+         
+    public List<Wall> getAllEntries(){
+        session = helper.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        String hql = "FROM Wall";
+        Query query = session.createQuery(hql);
+        t.commit();
+        wallList = query.list();
+        return wallList;        
     }
     
 }

@@ -9,8 +9,15 @@
 
 	<c:set var="myvar" value="choice: " scope="session" />
 	#{myvar}
-
+         <br></br>
+         zalogowany jako:
          #{atrybut.getLogin()}
+         
+         <c:if test="#{not empty atrybut.getLogin()}">
+            <c:forEach items="#{data.getAllEntries()}" var="wall">
+            <br>#{wall.id}, #{wall.login}, #{wall.message}</br>
+	</c:forEach>	
+        </c:if>
 
 </body>
 </html>
