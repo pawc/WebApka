@@ -12,10 +12,13 @@
                  <h:inputText id="input" binding="#{entry}" size="150"/>
                  <h:commandButton value="Submit" action="#{data.newEntry(atrybut.getLogin(), entry.value)}" />
              </h:form>
-             <table style="width:100%"><col width="150" /><col width="150" />
+             <table style="width:100%"><col width="200" />
                 <c:forEach items="#{data.getAllEntries()}" var="wall">
-                    <tr><td><img src="http://kritsit.ddns.net:81/#{wall.login}.jpg" width="50" height="50" align="center" /></td>
-                        <td><p align="center"> #{wall.login}</p></td><td><p align="center"> #{wall.message}</p></td></tr>
+                    <tr><td><h2>#{wall.login}</h2>
+                                <img src="http://kritsit.ddns.net:81/#{wall.login}.jpg" width="50" height="50" align="center" />
+                                <br>#{data.getCity(wall.login)}</br>
+                                #{data.getEmail(wall.login)}</td>
+                       <td><p align="center"> #{wall.message}</p></td></tr>
                 </c:forEach>	
              </table>
         </c:if>

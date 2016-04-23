@@ -24,6 +24,7 @@ public class Data {
         session = helper.getSessionFactory().openSession();     
         Transaction t = session.beginTransaction();
         session.save(new Userpass(login, hashedPass));
+        session.save(new Info(login, "", ""));
         t.commit();  
     }
     
@@ -69,6 +70,24 @@ public class Data {
         Transaction t = session.beginTransaction();
         session.save(new Wall(login, entry));
         t.commit();  
+    }
+    
+    public String getCity(String login){
+        session = helper.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        String hql = "FROM Info AS I where I.login='"+login+"'";
+        Query query = session.createQuery(hql);
+        t.commit();
+        return ((Info) query.list().get(0)).getCity();
+    }
+    
+        public String getEmail(String login){
+        session = helper.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        String hql = "FROM Info AS I where I.login='"+login+"'";
+        Query query = session.createQuery(hql);
+        t.commit();
+        return ((Info) query.list().get(0)).getEmail();
     }
     
 }
