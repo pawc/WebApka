@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
+import pawc.webapp.model.Bean;
 
 @WebServlet(name = "Upload", urlPatterns = {"/Upload"})
 public class Upload extends HttpServlet {
@@ -20,33 +21,30 @@ public class Upload extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
-        String name = (String) session.getAttribute("login");
-        if(name==null) response.sendRedirect("index.jsp");
+
         PrintWriter out = response.getWriter();    
         
         Part filePart = request.getPart("file"); 
         String fileName = getFileName(filePart);
         InputStream fileContent = filePart.getInputStream();
         
-        if(filePart.getSize()==0||filePart.getSize()>10240){
-            response.sendRedirect("Details");
+        if(filePart.getSize()==0||filePart.getSize()>20480){
+            out.println("Image too big (max 20kB");
             return;
         }
         String serverFileName = "";
+        Bean bean = (Bean) request.getSession().getAttribute("atrybut");
         try{
-            File file = new File("/opt/photos/"+name+".jpg");
+            File file = new File("/opt/photos/"+bean.getLogin()+".jpg");
             serverFileName = file.getAbsolutePath();
             file.createNewFile();
             FileOutputStream output = new FileOutputStream(file);
             IOUtils.copy(fileContent, output);
         } catch(IOException e){
             out.println(e.toString());
-            //response.sendRedirect("/Details");
+            out.println("ok");
             return;
         }
-        response.sendRedirect("Details");
         
     }
     

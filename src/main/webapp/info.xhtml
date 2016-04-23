@@ -15,6 +15,11 @@
                  e-mail: <h:inputText id="i2" binding="#{email}" size="50"/><br></br>
                  <h:commandButton value="Update" action="#{data.updateInfo(atrybut.getLogin(), city.value, email.value)}" />
              </h:form>
+            <img src="http://kritsit.ddns.net:81/#{atrybut.getLogin()}.jpg" width="50" height="50" />
+            <form action="Upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" /><input type="submit" value="Upload (max 20kB)" />
+            </form>         
+
              <h:form>
                  <h:commandButton value="Back" action="page.xhtml" />
              </h:form>
