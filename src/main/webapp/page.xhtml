@@ -6,17 +6,18 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	>
 <body>
-
-	<c:set var="myvar" value="choice: " scope="session" />
-	#{myvar}
-         <br></br>
-         zalogowany jako:
-         #{atrybut.getLogin()}
-         
          <c:if test="#{not empty atrybut.getLogin()}">
-            <c:forEach items="#{data.getAllEntries()}" var="wall">
-            <br>#{wall.id}, #{wall.login}, #{wall.message}</br>
-	</c:forEach>	
+             <p align="center">Logged as: #{atrybut.getLogin()}</p>
+             <h:form>
+                 <h:inputText id="input" binding="#{entry}" size="150"/>
+                 <h:commandButton value="Submit" action="#{data.newEntry(atrybut.getLogin(), entry.value)}" />
+             </h:form>
+             <table style="width:100%"><col width="150" /><col width="150" />
+                <c:forEach items="#{data.getAllEntries()}" var="wall">
+                    <tr><td><img src="http://kritsit.ddns.net:81/#{wall.login}.jpg" width="50" height="50" align="center" /></td>
+                        <td><p align="center"> #{wall.login}</p></td><td><p align="center"> #{wall.message}</p></td></tr>
+                </c:forEach>	
+             </table>
         </c:if>
 
 </body>

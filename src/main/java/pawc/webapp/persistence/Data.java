@@ -57,11 +57,18 @@ public class Data {
     public List<Wall> getAllEntries(){
         session = helper.getSessionFactory().openSession();
         Transaction t = session.beginTransaction();
-        String hql = "FROM Wall";
+        String hql = "FROM Wall ORDER BY id DESC";
         Query query = session.createQuery(hql);
         t.commit();
         wallList = query.list();
         return wallList;        
+    }   
+    
+    public void newEntry(String login, String entry){
+        session = helper.getSessionFactory().openSession();     
+        Transaction t = session.beginTransaction();
+        session.save(new Wall(login, entry));
+        t.commit();  
     }
     
 }

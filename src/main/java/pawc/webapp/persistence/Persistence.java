@@ -8,9 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import pawc.webapp.model.User;
-import pawc.webapp.model.EntryModel;
-
 public class Persistence{
    
     public static List<String> getInfo(String login) throws SQLException, ClassNotFoundException{
@@ -66,35 +63,6 @@ public class Persistence{
         stmt.close();
         conn.close();
         return list;
-    }	
-
-    public static List<EntryModel> getAllEntries() throws SQLException, ClassNotFoundException{
-        List<EntryModel> list = new ArrayList<EntryModel>();
-        Class.forName("org.postgresql.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
-        Statement stmt = conn.createStatement();
-        String query = "Select * from wall order by date desc;";
-        ResultSet rs = stmt.executeQuery(query);
-        while(rs.next()){
-            EntryModel entry = new EntryModel(rs.getString(1), rs.getString(2), rs.getString(3));
-            list.add(entry);
-        }      
-	rs.close();
-	stmt.close();
-	conn.close();
-    return list;
-    }
-
-    public static void addEntry(EntryModel entry) throws SQLException, ClassNotFoundException{
-
-        Class.forName("org.postgresql.Driver");
-
-        Connection conn = DriverManager.getConnection("jdbc:postgresql://kritsit.ddns.net:5432/webapka", "webapka", "razdwatrzy");
-        Statement stmt = conn.createStatement();
-        String query = "insert into wall values('"+entry.getAuthor()+"','NOW()','"+entry.getMessage()+"');";
-        stmt.executeUpdate(query);
-	stmt.close();
-	conn.close();        
-    }
-
+    }	 
+    
 }

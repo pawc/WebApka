@@ -51,12 +51,9 @@ public class Wall extends HttpServlet {
             out.println("<form action=Logout method=post><p align=center><input type=submit value=Logout /></form>");
             out.println("<form action=CheckDetails method=post><p align=center><input type=text name=info size=10 /><input type=submit value='Search User' /></form>");
             out.println("<form action=InsertEntry method=post><p align=center><input type=text name=message size=50 /><input type=submit value='Submit message' /></p></form>");
-            List<EntryModel> list = Persistence.getAllEntries();
+           
             String content = "";
 
-            for(EntryModel entry : list){
-                content+=printRow(entry.getAuthor(), entry.getDate(), entry.getMessage());
-            }
 
             out.println(table(content));
             out.println("</html>");
