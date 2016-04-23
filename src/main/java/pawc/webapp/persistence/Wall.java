@@ -43,9 +43,6 @@ public class Wall  implements java.io.Serializable {
         this.message = message;
     }
 
-
-
-
 }
 
 

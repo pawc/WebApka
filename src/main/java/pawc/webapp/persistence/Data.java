@@ -85,11 +85,12 @@ public class Data {
         return wallList;        
     }   
     
-    public void newEntry(String login, String entry){
+    public String newEntry(String login, String entry){
         session = helper.getSessionFactory().openSession();     
         Transaction t = session.beginTransaction();
         session.save(new Wall(login, entry));
-        t.commit();  
+        t.commit(); 
+        return "page?faces-redirect=true&amp;includeViewParams=true";
     }
     
     public String getCity(String login){
