@@ -17,6 +17,7 @@ import pawc.webapp.model.User;
 
 import java.sql.SQLException;
 import javax.faces.context.FacesContext;
+import pawc.webapp.model.Bean;
 import pawc.webapp.persistence.Data;
 
 @WebServlet("/Login")
@@ -36,7 +37,9 @@ public class Login extends HttpServlet {
             Data data = new Data();
             if(data.login(name, hashedPass)){
                 HttpSession session = request.getSession(true);
-                request.setAttribute("login", name);
+                Bean bean = new Bean();
+                bean.setLogin(name);
+                session.setAttribute("atrybut", bean);
                 response.sendRedirect("page.xhtml");
             }
             else{        
