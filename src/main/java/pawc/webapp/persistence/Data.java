@@ -3,112 +3,205 @@ package pawc.webapp.persistence;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class Data {
     
-    private Info info;
-    private Userpass userpass;
-    private Wall wall;
     private HibernateUtil helper;
-    private Session session;
     private String message;
-    private List<Userpass> userpassList;
-    private List<Wall> wallList;
     
     public void newUser(String login, String hashedPass){
-        session = helper.getSessionFactory().openSession();     
-        Transaction t = session.beginTransaction();
-        session.save(new Userpass(login, hashedPass));
-        session.save(new Info(login, "", ""));
-        t.commit();  
+        Session session = null;
+		Transaction t = null;
+		try{
+			session = helper.getSessionFactory().openSession();     
+    	    t = session.beginTransaction();
+        	session.save(new Userpass(login, hashedPass));
+	        session.save(new Info(login, "", ""));
+    	    t.commit();
+		}
+		catch(Exception e){
+			t.rollback();
+			e.printStackTrace();
+		}  
+		finally{
+		}
     }
     
     public void updateInfo(String login, String city, String email){
-         session = helper.getSessionFactory().openSession();     
-         Transaction t = session.beginTransaction();
-         String hql = "FROM Info AS I where I.login='"+login+"'";
-         Query query = session.createQuery(hql);
-         Info temp = ((Info) query.list().get(0));
-         temp.setCity(city);
-         temp.setEmail(email);
-         session.saveOrUpdate(temp);
-         t.commit();
+		Session session = null;
+		Transaction t = null;
+        try{
+		session = helper.getSessionFactory().openSession();     
+        t = session.beginTransaction();
+        String hql = "FROM Info AS I where I.login='"+login+"'";
+        Query query = session.createQuery(hql);
+        Info temp = ((Info) query.list().get(0));
+        temp.setCity(city);
+        temp.setEmail(email);
+        session.saveOrUpdate(temp);
+        t.commit();
+		}
+		catch(Exception e){
+		t.rollback();
+		e.printStackTrace();
+		}
+		finally{
+		}
     }
     
     public Info getInfo(String login){
-         session = helper.getSessionFactory().openSession();     
-         Transaction t = session.beginTransaction();
-         String hql = "FROM Info AS I where I.login='"+login+"'";
-         Query query = session.createQuery(hql);
-         return ((Info) query.list().get(0));
+        Session session = null;
+		Transaction t = null;
+		Query q = null;
+		try{
+   		session = helper.getSessionFactory().openSession();     
+        t = session.beginTransaction();
+        String hql = "FROM Info AS I where I.login='"+login+"'";
+        q = session.createQuery(hql);
+		}
+		catch(Exception e){
+		t.rollback();
+		e.printStackTrace();
+		}
+		finally{
+        return ((Info) q.list().get(0));
+		}
     }
     
     public boolean isUserRegistered(String login){
+		Session session = null;
+		Transaction t = null;
+		Query q = null;
+		List<Userpass> userpassList = null;
+		try{
         session = helper.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+        t = session.beginTransaction();
         String hql = "FROM Userpass";
-        Query query = session.createQuery(hql);
+        q = session.createQuery(hql);
         t.commit();
-        userpassList = query.list();
-        
-        for(Userpass u : userpassList){
-            if(login.equals(u.getLogin())) return true;
+        userpassList = q.list();
         }
-        return false; 
+		catch(Exception e){
+		t.rollback();
+		e.printStackTrace();
+		}
+		finally{
+        	for(Userpass u : userpassList){
+            	if(login.equals(u.getLogin())) return true;
+	        }
+        return false;
+		} 
     }
     
     public boolean login(String login, String hashedPass){
+		Session session = null;
+		Transaction t = null;
+		Query q = null;
+		List<Userpass> userpassList = null;
+		try{
         session = helper.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+        t = session.beginTransaction();
         String hql = "FROM Userpass U WHERE U.login='"+login+"'";
-        Query query = session.createQuery(hql);
+        q = session.createQuery(hql);
         t.commit();
-        userpassList = query.list();
-        if(userpassList.get(0).getHashedpass().equals(hashedPass)){
-            return true;
-        }
-        else return false; 
+        userpassList = q.list();
+		}
+		catch(Exception e){
+			t.rollback();
+			e.printStackTrace();
+		}
+		finally{
+	        if(userpassList.get(0).getHashedpass().equals(hashedPass)){
+    	        return true;
+	        }
+    	    else return false;
+		} 
     }
          
     public List<Wall> getAllEntries(){
+		Session session = null;
+		Transaction t = null;
+		Query q = null;
+		List<Wall> wallList = null;
+		try{
         session = helper.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+       	t = session.beginTransaction();
         String hql = "FROM Wall ORDER BY id DESC";
-        Query query = session.createQuery(hql);
+        q = session.createQuery(hql);
         t.commit();
-        wallList = query.list();
-        return wallList;        
+		wallList = q.list();
+        }
+		catch(Exception e){
+			t.rollback();
+			e.printStackTrace();
+		}
+		finally{
+		return wallList;
+		}        
     }   
     
     public String newEntry(String login, String entry){
-        session = helper.getSessionFactory().openSession();     
-        Transaction t = session.beginTransaction();
+		Session session = null;
+		Transaction t = null;
+		try{
+		session = helper.getSessionFactory().openSession();     
+        t = session.beginTransaction();
         session.save(new Wall(login, entry));
         t.commit(); 
-        return "page?faces-redirect=true&amp;includeViewParams=true";
+        }
+		catch(Exception e){
+			t.rollback();
+			e.printStackTrace();
+		}
+		finally{
+			return "page?faces-redirect=true&amp;includeViewParams=true";
+		}
     }
     
     public String getCity(String login){
-        session = helper.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+		Session session = null;
+		Transaction t =null;
+		Query q = null;
+        try{
+		session = helper.getSessionFactory().openSession();
+        t = session.beginTransaction();
         String hql = "FROM Info AS I where I.login='"+login+"'";
-        Query query = session.createQuery(hql);
+        q = session.createQuery(hql);
         t.commit();
-        return ((Info) query.list().get(0)).getCity();
+		}
+		catch(Exception e){
+			t.rollback();
+			e.printStackTrace();
+		}
+		finally{
+        return ((Info) q.list().get(0)).getCity();
+		}
     }
     
-        public String getEmail(String login){
-        session = helper.getSessionFactory().openSession();
-        Transaction t = session.beginTransaction();
+    public String getEmail(String login){
+        Session session = null;
+		Transaction t = null;
+		Query q = null;
+		try{
+		session = helper.getSessionFactory().openSession();
+        t = session.beginTransaction();
         String hql = "FROM Info AS I where I.login='"+login+"'";
-        Query query = session.createQuery(hql);
+        q = session.createQuery(hql);
         t.commit();
-        return ((Info) query.list().get(0)).getEmail();
-    }
+		}
+		catch(Exception e){
+			t.rollback();
+			e.printStackTrace();	
+		}
+		finally{
+        return ((Info) q.list().get(0)).getEmail();
+		}
+	}
     
 }
