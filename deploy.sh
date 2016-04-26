@@ -1,1 +1,1 @@
-sudo cp -r target/* /opt/apache-tomcat-7.0.67/webapps/
+sudo cp -r target/* $TOMCAT_HOME/webapps/
