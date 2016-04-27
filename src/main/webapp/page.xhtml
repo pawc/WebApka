@@ -18,7 +18,7 @@
                  <h:commandButton value="Submit" action="#{data.newEntry(atrybut.getLogin(), entry.value)}" />
              </h:form>
              <h:form>
-                 <h:commandButton value="Info" action="info.xhtml" />
+                 <h:commandButton value="Info" action="info?faces-redirect=true" />
              </h:form>
              <table style="width:100%"><col width="200" />
                 <c:forEach items="#{data.getAllEntries()}" var="wall">
