@@ -30,6 +30,7 @@ public class Data {
 			e.printStackTrace();
 		}  
 		finally{
+			session.close();
 		}
     }
     
@@ -52,6 +53,7 @@ public class Data {
 		e.printStackTrace();
 		}
 		finally{
+		session.close();
 		}
     }
     
@@ -70,6 +72,7 @@ public class Data {
 		e.printStackTrace();
 		}
 		finally{
+		session.close();
         return ((Info) q.list().get(0));
 		}
     }
@@ -95,6 +98,7 @@ public class Data {
         	for(Userpass u : userpassList){
             	if(login.equals(u.getLogin())) return true;
 	        }
+		session.close();
         return false;
 		} 
     }
@@ -117,6 +121,7 @@ public class Data {
 			e.printStackTrace();
 		}
 		finally{
+			session.close();
 	        if(userpassList.get(0).getHashedpass().equals(hashedPass)){
     	        return true;
 	        }
@@ -142,6 +147,7 @@ public class Data {
 			e.printStackTrace();
 		}
 		finally{
+		session.close();
 		return wallList;
 		}        
     }   
@@ -160,6 +166,7 @@ public class Data {
 			e.printStackTrace();
 		}
 		finally{
+			session.close();
 			return "page?faces-redirect=true&amp;includeViewParams=true";
 		}
     }
@@ -180,6 +187,7 @@ public class Data {
 			e.printStackTrace();
 		}
 		finally{
+		session.close();
         return ((Info) q.list().get(0)).getCity();
 		}
     }
@@ -200,6 +208,7 @@ public class Data {
 			e.printStackTrace();	
 		}
 		finally{
+		session.close();
         return ((Info) q.list().get(0)).getEmail();
 		}
 	}
