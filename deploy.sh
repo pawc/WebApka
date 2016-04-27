@@ -1,1 +1,1 @@
-sudo cp -r target/* $TOMCAT_HOME/webapps/
+sudo cp -r target/* /opt/apache-tomcat-8.0.33/webapps/
