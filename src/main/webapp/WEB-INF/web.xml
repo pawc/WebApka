@@ -72,8 +72,8 @@
 </servlet-mapping>
 
 <servlet>
-    <servlet-name>Wall</servlet-name>
-    <servlet-class>pl.pawc.Wall</servlet-class>
+	<servlet-name>Logout</servlet-name>
+	<servlet-class>pawc.webapp.Logout</servlet-class>
 </servlet>
 
 <servlet>

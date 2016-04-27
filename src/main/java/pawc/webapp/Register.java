@@ -35,7 +35,7 @@ public class Register extends HttpServlet {
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
             if(name.length()<3 || pass.length()<3){
-                out.println("<html><p align=center>Haslo i login musza miec minimum 3 znaki</p><p align=center><a href=index.jsp>powrót</a></p></html>");
+                out.println("<html><p align=center>Login and pass >= 3 characters</p><p align=center><a href=index.jsp>back</a></p></html>");
                 return;
             }
 

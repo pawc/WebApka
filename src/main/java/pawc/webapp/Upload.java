@@ -40,9 +40,9 @@ public class Upload extends HttpServlet {
             file.createNewFile();
             FileOutputStream output = new FileOutputStream(file);
             IOUtils.copy(fileContent, output);
+			response.sendRedirect("info.xhtml");
         } catch(IOException e){
             out.println(e.toString());
-            out.println("ok");
             return;
         }
         

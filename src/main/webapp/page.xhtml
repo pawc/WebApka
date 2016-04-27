@@ -11,7 +11,7 @@
     
 <body>
          <c:if test="#{not empty atrybut.getLogin()}">
-             <p align="center">Logged as: #{atrybut.getLogin()}</p>
+             <p align="center">Logged as: #{atrybut.getLogin()}   <a href="http://kritsit.ddns.net:8080/WebApka/Logout">logout</a></p>
              <h:form>
                  <h:inputText label="your message" id="input" binding="#{entry}" required="true" size="150"/>
                  <h:message for="fentry" />
